@@ -1,4 +1,4 @@
-import { Signal } from "@preact/signals-core";
+import { batch, Signal } from "@preact/signals-core";
 
 class SubscriptionService {
     private unsubscribeMap: Map<any, () => void> = new Map();
@@ -19,12 +19,15 @@ class SubscriptionService {
             }
         });
 
-        // Subscribe new items
-        items.forEach((item) => {
-            if (!this.unsubscribeMap.has(item) && item && typeof item.subscribe === 'function') {
-                const unsubscribe = item.subscribe(callback);
-                this.unsubscribeMap.set(item, unsubscribe);
-            }
+        // Batch the subscription updates to prevent multiple re-renders
+        batch(() => {
+            // Subscribe new items
+            items.forEach((item) => {
+                if (!this.unsubscribeMap.has(item) && item && typeof item.subscribe === 'function') {
+                    const unsubscribe = item.subscribe(callback);
+                    this.unsubscribeMap.set(item, unsubscribe);
+                }
+            });
         });
     }
 
