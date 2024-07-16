@@ -11,16 +11,15 @@ class SubscriptionService {
     setupNestedSubscriptions(items: any[], callback: () => void): void {
         const currentItems = new Set(items);
 
-        // Unsubscribe removed items
-        this.unsubscribeMap.forEach((unsubscribe, item) => {
-            if (!currentItems.has(item)) {
-                unsubscribe();
-                this.unsubscribeMap.delete(item);
-            }
-        });
-
-        // Batch the subscription updates to prevent multiple re-renders
         batch(() => {
+            // Unsubscribe removed items
+            this.unsubscribeMap.forEach((unsubscribe, item) => {
+                if (!currentItems.has(item)) {
+                    unsubscribe();
+                    this.unsubscribeMap.delete(item);
+                }
+            });
+
             // Subscribe new items
             items.forEach((item) => {
                 if (!this.unsubscribeMap.has(item) && item && typeof item.subscribe === 'function') {
