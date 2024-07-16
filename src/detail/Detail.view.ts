@@ -12,6 +12,7 @@ import {map} from "lit/directives/map.js";
 
 
 export class DetailView extends ScopedRegistryHost(SignalWatcher(LitElement)) {
+// export class DetailView extends ScopedRegistryHost(LitElement) {
     private rerenderCount = 0;
     static elementDefinitions = {
         'view-boolean': BooleanView,

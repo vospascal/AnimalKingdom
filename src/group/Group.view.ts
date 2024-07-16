@@ -9,6 +9,7 @@ import {map} from "lit/directives/map.js";
 
 
 export class GroupView extends ScopedRegistryHost(SignalWatcher(LitElement)) {
+// export class GroupView extends ScopedRegistryHost(LitElement) {
     private rerenderCount = 0;
     static elementDefinitions = {
         'view-detail': DetailView,
@@ -86,7 +87,7 @@ export class GroupView extends ScopedRegistryHost(SignalWatcher(LitElement)) {
                         id: ${this.group.id}
                     </li>
                 </ul>
-                ${this.renderRepeatList()}
+                ${this.renderGroup()}
             </div>
         `;
     }
@@ -95,7 +96,7 @@ export class GroupView extends ScopedRegistryHost(SignalWatcher(LitElement)) {
         if (!this.group?.items) return nothing
         return html`
             <ul>
-                ${this.renderMap()}
+                ${this.renderRepeatList()}
             </ul>
             <button @click=${this.addItem}>add detail</button>
         `

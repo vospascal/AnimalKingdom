@@ -2,10 +2,12 @@ import {LitElement, html, nothing, css} from 'lit';
 import {property} from "lit/decorators.js";
 import TextModel from "./Text.model.ts";
 import {SignalWatcher} from "@lit-labs/preact-signals";
+import { ScopedRegistryHost } from '@lit-labs/scoped-registry-mixin';
 
 
 
-export class TextView extends SignalWatcher(LitElement) {
+export class TextView extends ScopedRegistryHost(SignalWatcher(LitElement)) {
+// export class TextView extends ScopedRegistryHost(LitElement) {
     private rerenderCount = 0;
     @property({type: Object}) accessor item: TextModel | null = null;
 

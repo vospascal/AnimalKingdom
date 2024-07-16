@@ -2,9 +2,11 @@ import {LitElement, html, css} from 'lit';
 import {property} from "lit/decorators.js";
 import BooleanModel from "./Boolean.model";
 import {SignalWatcher} from "@lit-labs/preact-signals";
+import { ScopedRegistryHost } from '@lit-labs/scoped-registry-mixin';
 
 
-export class BooleanView extends SignalWatcher(LitElement) {
+export class BooleanView extends ScopedRegistryHost(SignalWatcher(LitElement)) {
+// export class BooleanView extends ScopedRegistryHost(LitElement) {
     private rerenderCount = 0;
     @property({type: Object}) accessor item: BooleanModel | null = null;
 
