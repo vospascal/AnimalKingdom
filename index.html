@@ -13,5 +13,27 @@
       <p>rendering 1153 input's</p>
       <reference-model-context></reference-model-context>
     </body>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          customElements.whenDefined('reference-model-context').then(() => {
+              const element = document.querySelector('reference-model-context');
+              if (element) {
+                  if (element.provider && element.provider.store) {
+                      window.lala = element.provider.store
+                      element.provider.store.subscribeToReferenceModel((value) => {
+                          console.log(value, 'value');
+                      });
+                  } else {
+                      console.error('Provider or store not available on reference-model-context.');
+                  }
+              } else {
+                  console.error('reference-model-context element not found.');
+              }
+          }).catch((error) => {
+              console.error('Error defining custom element:', error);
+          });
+      });
+      //window.lala.referenceModel.value.content[0].items[0].addText()
+  </script>
 </html>
     
