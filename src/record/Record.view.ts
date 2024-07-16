@@ -9,8 +9,8 @@ import {SignalWatcher} from "@lit-labs/preact-signals";
 import {repeat} from 'lit/directives/repeat.js';
 import {map} from 'lit/directives/map.js';
 
-// export class RecordView extends ScopedRegistryHost(SignalWatcher(LitElement)) {
-export class RecordView extends ScopedRegistryHost(LitElement) {
+export class RecordView extends ScopedRegistryHost(SignalWatcher(LitElement)) {
+// export class RecordView extends ScopedRegistryHost(LitElement) {
     private rerenderCount = 0;
     static elementDefinitions = {
         'view-group': GroupView
@@ -53,18 +53,18 @@ export class RecordView extends ScopedRegistryHost(LitElement) {
     @consume({context: StoreContext, subscribe: true})
     private accessor store!: ReferenceModelStore;
 
-    connectedCallback() {
-        super.connectedCallback();
-        this.store.subscribeToReferenceModel(() => {
-            console.log('updated')
-            this.requestUpdate();
-        });
-    }
+    // connectedCallback() {
+    //     super.connectedCallback();
+    //     this.store.subscribeToReferenceModel(() => {
+    //         console.log('updated')
+    //         this.requestUpdate();
+    //     });
+    // }
 
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.store.unsubscribeFromReferenceModel();
-    }
+    // disconnectedCallback() {
+    //     super.disconnectedCallback();
+    //     this.store.unsubscribeFromReferenceModel();
+    // }
 
     updated() {
         this.rerenderCount++;
